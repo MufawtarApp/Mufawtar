@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "385583311727",
+    "project_id": "kkkk-94b3f",
+    "storage_bucket": "kkkk-94b3f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:385583311727:android:89a8c03c23b9d74f22169a",
+        "android_client_info": {
+          "package_name": "com.example.mufawtar"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDgYKXqayvt_jb5iR0njKNNCzgB7iHSzlc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
