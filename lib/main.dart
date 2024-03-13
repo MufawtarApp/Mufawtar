@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mufawtar/auth.dart';
 import 'package:mufawtar/screens/home_screen.dart';
+import 'package:mufawtar/screens/list_invoices_screen.dart';
 import 'package:mufawtar/screens/login_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:mufawtar/screens/signup_screen.dart';
@@ -30,6 +31,7 @@ class MyApp extends StatelessWidget {
           'homeScreen': (context) => const HomeScreen(),
           'signupScreen': (context) => const SignupScrenn(),
           'loginScreen': (context) => const LoginScreen(),
+          'listInvoicesScreen': (context) => const ListScreen(),
         });
   }
 }
