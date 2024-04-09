@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:mufawtar/auth.dart';
+
 import 'package:mufawtar/screens/home_screen.dart';
 import 'package:mufawtar/screens/list_invoices_screen.dart';
 import 'package:mufawtar/screens/login_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:mufawtar/screens/signup_screen.dart';
+import 'package:mufawtar/screens/description_Screen1.dart';
 import 'firebase_options.dart';
 
 void main() async {
@@ -32,6 +34,8 @@ class MyApp extends StatelessWidget {
           'signupScreen': (context) => const SignupScrenn(),
           'loginScreen': (context) => const LoginScreen(),
           'listInvoicesScreen': (context) => const ListScreen(),
+          'descriptionScreen': (context) => const DescriptionScreen(),
+          
         });
   }
 }

@@ -3,6 +3,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
+import '../addInvoice.dart';
+import 'description_Screen1.dart';
+
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
@@ -26,6 +29,22 @@ class _HomeScreenState extends State<HomeScreen> {
     setState(() {
       _image = image; // Assign the XFile to _image
     });
+
+    // Inside the getImage method
+if (image != null) {
+  File imageFile = File(image.path);
+
+  Navigator.push(
+    context,
+    MaterialPageRoute(
+      builder: (context) => DescriptionScreen(
+        image: imageFile,
+        addInvoice: InvoiceManager().addInvoice,
+      ),
+    ),
+  );
+}
+
   }
 
   final user =
