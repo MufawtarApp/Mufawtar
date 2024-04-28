@@ -30,7 +30,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  image_picker:
+  image_picker: ^1.1.0
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -39,6 +39,9 @@ dependencies:
   google_fonts: ^6.2.1
   firebase_core: ^2.25.5
   firebase_auth: ^4.17.6
+  font_awesome_flutter: ^10.7.0
+  splash_screen_view: ^3.0.0
+  google_ml_kit: ^0.18.0
 
 dev_dependencies:
   flutter_test:
@@ -50,7 +53,8 @@ dev_dependencies:
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
   flutter_lints: ^3.0.0
-  image_picker: ^0.8.6
+  
+  
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 
