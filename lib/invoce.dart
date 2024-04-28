@@ -1,8 +1,13 @@
 import 'dart:io';
 
 class Invoice {
-  final File image;
-  final String description;
+   File image;
+   String companyName;
+   String totalPrice;
 
-  Invoice({required this.image, required this.description});
+
+  Invoice({required this.image, required this.companyName, required this.totalPrice});
+
+  
+  
 }

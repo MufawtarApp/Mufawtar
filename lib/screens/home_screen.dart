@@ -2,9 +2,9 @@ import 'dart:io';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:mufawtar/screens/description_Screen1.dart';
+//import 'description_Screen1.dart';
 
-import '../addInvoice.dart';
-import 'description_Screen1.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -17,13 +17,13 @@ class _HomeScreenState extends State<HomeScreen> {
   XFile? _image; // Change the type to XFile?
 
   Future<void> getImage(bool isCamera) async {
-    ImagePicker _picker = ImagePicker();
+    ImagePicker picker = ImagePicker();
     XFile? image;
 
     if (isCamera) {
-      image = await _picker.pickImage(source: ImageSource.camera);
+      image = await picker.pickImage(source: ImageSource.camera);
     } else {
-      image = await _picker.pickImage(source: ImageSource.gallery);
+      image = await picker.pickImage(source: ImageSource.gallery);
     }
 
     setState(() {
@@ -39,7 +39,6 @@ if (image != null) {
     MaterialPageRoute(
       builder: (context) => DescriptionScreen(
         image: imageFile,
-        addInvoice: InvoiceManager().addInvoice,
       ),
     ),
   );
