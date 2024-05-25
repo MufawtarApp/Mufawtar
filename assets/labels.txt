@@ -1,0 +1,37 @@
+0 Araxi Burger Aventura
+1 BRASAS RESTAURANT
+2 Cafe Parisien Larchmont Llc
+3 Calagero's
+4 CITY TASTE
+5 Covina
+6 Dona Mercedes Restaurant
+7 Eugene
+8 FIVE GUYS
+9 General Poors
+10 Golden Coin
+11 HP Pho Ga
+12 Kaiseki Japanese Cuisine
+13 Katana Sushi
+14 kickin kajun
+15 MOOYAH Burgers Fries
+16 Mr. M's Hot Wings & Things Inc
+17 NAANCHING
+18 Nancys
+19 New Asia Buffet
+20 Noches De Colombia
+21 OHANA HAWAIIAN BBQ
+22 Pappadeaux Seafood Kitchen
+23 Paradise Restaurant
+24 POKEATERY
+25 Rincon Mexicano
+26 River Village Family Restaurant
+27 Smoke City Market
+28 SmokeBoxBBQ
+29 Subway
+30 Sukhothai
+31 Tay Ho Oakland
+32 Thai Gusto Restaurant
+33 Trattoria Saporito
+34 Villa D'este Restaurant
+35 Waipahe Pace Kapolei Hawaii
+36 Yums Restaurant

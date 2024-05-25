@@ -1,10 +1,12 @@
 import 'dart:io';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:mufawtar/screens/charts_screen.dart';
 import 'package:mufawtar/screens/description_Screen1.dart';
-//import 'description_Screen1.dart';
-
+import 'package:image_editor_plus/image_editor_plus.dart';
+import 'package:mufawtar/screens/enhancement_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -14,7 +16,9 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  XFile? _image; // Change the type to XFile?
+  XFile? _image; 
+  final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+      FlutterLocalNotificationsPlugin();
 
   Future<void> getImage(bool isCamera) async {
     ImagePicker picker = ImagePicker();
@@ -30,34 +34,72 @@ class _HomeScreenState extends State<HomeScreen> {
       _image = image; // Assign the XFile to _image
     });
 
-    // Inside the getImage method
-if (image != null) {
-  File imageFile = File(image.path);
-
-  Navigator.push(
-    context,
-    MaterialPageRoute(
-      builder: (context) => DescriptionScreen(
-        image: imageFile,
-      ),
-    ),
-  );
-}
-
+    if (image != null) {
+      File imageFile = File(image.path);
+      var editedImage;
+      editedImage = await Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => ImageCropper(
+            image: imageFile.readAsBytesSync(),
+          ),
+        ),
+      );
+      if (editedImage != null) {
+        imageFile.writeAsBytes(editedImage);
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => EnhanceScreen(
+              image: imageFile,
+            ),
+          ),
+        );
+      } else {
+        Navigator.of(context).pushReplacementNamed('homeScreen');
+      }
+    }
   }
 
-  final user =
-      FirebaseAuth.instance.currentUser!; // this will save all actions user did
+  final user = FirebaseAuth.instance.currentUser!; // this will save all actions user did
   @override
   Widget build(BuildContext context) {
     int numIndex = 0;
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
-        title: const Text('Mufawtar'),
-        centerTitle: true,
-        backgroundColor: Colors.white,
+        backgroundColor: Colors.purple,
         foregroundColor: Colors.black,
         elevation: 0,
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Row(
+              children: [
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Text(
+                      'MUFAWTAR',
+                      style: TextStyle(
+                        color: Color.fromARGB(255, 255, 255, 255),
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    const Text(
+                      'All Invoices In One Place',
+                      style: TextStyle(
+                        color: Color.fromARGB(255, 255, 255, 255),
+                        fontSize: 12,
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ],
+        ),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -83,7 +125,7 @@ if (image != null) {
                     .center, // Center the icon and text vertically
                 children: <Widget>[
                   Image.asset("images/document.png",
-                      width: 150, height: 150), // Your icon image
+                      width: 150, height: 150), // icon image
                   const SizedBox(height: 8), // Space between icon and text
                   const Text(
                     'Scan Invoice', // The label text
@@ -109,7 +151,7 @@ if (image != null) {
                 padding:
                     const EdgeInsets.symmetric(horizontal: 50, vertical: 20),
                 minimumSize:
-                    const Size.fromHeight(200), // Same here for consistency
+                    const Size.fromHeight(200), 
                 elevation: 0,
               ),
               child: Column(
@@ -117,7 +159,7 @@ if (image != null) {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   Image.asset("images/file.png",
-                      width: 150, height: 150), // Your second icon image
+                      width: 150, height: 150), //  second icon image
                   const SizedBox(height: 8), // Space between icon and text
                   const Text(
                     'Upload Invoice', // The label text for the second button
@@ -132,22 +174,24 @@ if (image != null) {
         ),
       ),
       bottomNavigationBar: BottomNavigationBar(
-        currentIndex: numIndex,
+        currentIndex: 1,
         type: BottomNavigationBarType.fixed,
         backgroundColor: Colors.white,
         selectedItemColor: Colors.purple,
         unselectedItemColor: Colors.grey,
-        selectedFontSize: 14,
-        unselectedFontSize: 14,
+        selectedFontSize: 12,
+        unselectedFontSize: 12,
         onTap: (value) {
           // Respond to item press.
           if (value == 0) {
-            // FirebaseAuth.instance.signOut();
+            FirebaseAuth.instance.signOut();
             Navigator.of(context).pushReplacementNamed('loginScreen');
           } else if (value == 1) {
             Navigator.of(context).pushReplacementNamed('homeScreen');
           } else if (value == 2) {
             Navigator.of(context).pushReplacementNamed('listInvoicesScreen');
+          }else if (value == 3) {
+            Navigator.of(context).pushReplacementNamed('chartsScreen');
           } else {
             Navigator.of(context).pushReplacementNamed('homeScreen');
           }
@@ -164,6 +208,10 @@ if (image != null) {
           BottomNavigationBarItem(
             label: 'List invoices ',
             icon: Icon(Icons.receipt),
+          ),
+          BottomNavigationBarItem(
+            label: 'summary',
+            icon: Icon(Icons.bar_chart)
           ),
         ],
       ),

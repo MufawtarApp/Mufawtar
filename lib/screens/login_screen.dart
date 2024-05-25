@@ -13,35 +13,26 @@ class _LoginScreenState extends State<LoginScreen> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
 
- /* Future signIn() async {
-    await FirebaseAuth.instance.signInWithEmailAndPassword(
-        email: _emailController.text.trim(),
-        password: _passwordController.text.trim());
-  }*/
+ 
+
   Future signIn() async {
-  try {
-    // Show loading indicator
-    
+    try {
+      // Show loading indicator
 
-    await FirebaseAuth.instance.signInWithEmailAndPassword(
-      email: _emailController.text.trim(),
-      password: _passwordController.text.trim(),
-    );
-    
-    
+      await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: _emailController.text.trim(),
+        password: _passwordController.text.trim(),
+      );
 
-    // Navigate to the HomeScreen if sign-in is successful
-    
-     Navigator.of(context).pushReplacementNamed('homeScreen');
+      // Navigate to the HomeScreen if sign-in is successful
 
-  } on FirebaseAuthException catch (e) {
-    
-
-    // Show the error message
-    final snackBar = SnackBar(content: Text('Error: ${e.message}'));
-    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+      Navigator.of(context).pushReplacementNamed('homeScreen');
+    } on FirebaseAuthException catch (e) {
+      // Show the error message
+      final snackBar = SnackBar(content: Text('Error: ${e.message}'));
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+    }
   }
-}
 
   void openSignupScreen() {
     Navigator.of(context).pushReplacementNamed('signupScreen');
@@ -58,10 +49,12 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+     
       backgroundColor: Colors.white,
       body: SafeArea(
         child: Center(
           child: SingleChildScrollView(
+            physics: BouncingScrollPhysics(),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [

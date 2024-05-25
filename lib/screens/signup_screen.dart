@@ -1,8 +1,10 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import '../widgets/password_confirmation.dart';
 
 class SignupScrenn extends StatefulWidget {
   const SignupScrenn({super.key});
@@ -12,16 +14,28 @@ class SignupScrenn extends StatefulWidget {
 }
 
 class _SignupScrennState extends State<SignupScrenn> {
+
+  ConfirmPassword confirmPassword = ConfirmPassword();
+
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   final _confirmPasswordController = TextEditingController();
 
   Future signUp() async {
-    if (passwordConfirmed()) {
+    if (confirmPassword.passwordConfirmed(_passwordController , _confirmPasswordController)) {
       try {
         await FirebaseAuth.instance.createUserWithEmailAndPassword(
             email: _emailController.text.trim(),
             password: _passwordController.text.trim());
+
+        final currentUser = FirebaseAuth.instance.currentUser!.uid;
+        //store the user's email in the firestore
+        await FirebaseFirestore.instance.collection('users').add({
+          'email': _emailController.text.trim(),
+          'password': _passwordController.text.trim(),
+          'uid': currentUser,
+        });
+
         Navigator.of(context).pushReplacementNamed('/');
       } on FirebaseAuthException catch (e) {
         ScaffoldMessenger.of(context).showSnackBar(
@@ -41,23 +55,7 @@ class _SignupScrennState extends State<SignupScrenn> {
     }
   }
 
-  // Future signUp() async {
-  //   if (passwordConfirmed()) {
-  //     await FirebaseAuth.instance.createUserWithEmailAndPassword(
-  //         email: _emailController.text.trim(),
-  //         password: _passwordController.text.trim());
-  //     Navigator.of(context).pushNamed('/');
-  //   }
-  // }
-
-  bool passwordConfirmed() {
-    if (_passwordController.text.trim() ==
-        _confirmPasswordController.text.trim()) {
-      return true;
-    } else {
-      return false;
-    }
-  }
+  
 
   void openSignupScreen() {
     Navigator.of(context).pushReplacementNamed('signupScreen');
@@ -83,6 +81,7 @@ class _SignupScrennState extends State<SignupScrenn> {
       body: SafeArea(
         child: Center(
           child: SingleChildScrollView(
+            physics: BouncingScrollPhysics(),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
